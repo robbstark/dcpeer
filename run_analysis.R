@@ -1,4 +1,4 @@
-## Script for cleaning and creating tidy data from Samsung S2 Accelerometer.
+cript for cleaning and creating tidy data from Samsung S2 Accelerometer.
 
 # Read in the data files into data tables.
 
@@ -13,7 +13,7 @@ subTrain <- read.table("./UCI HAR Dataset/train/subject_train.txt", header=F)
 
 # Combine test, trainig and subject datasets
 X1 <- rbind(xTrain, xTest)  
-y <- rbind(yTrain, yTest)
+y1 <- rbind(yTrain, yTest)
 subject <- rbind(subTrain, subTest)
 
 #clean up memory
@@ -25,7 +25,9 @@ X <- X1[,cols]
 colnames(X) <- featLabels$V2[cols]
 
 # Add descriptive activity names
-y <- merge(y, actLabels, by.x="V1", by.y="V1")  
+library(plyr)
+y <- join(y1, actLabels, by="V1", type="left")  
+
 
 # Add Activity and Subject Columns to X
 X <- cbind((factor(subject$V1)), factor(y$V2), X)
@@ -36,5 +38,5 @@ colnames(X)[2] <- c("Activity")
 td <- aggregate(X[,-(1:2)], by=list(X$Subject,X$Activity), FUN=mean)
 
 #write the dataset out
-write.table(td, file="TidyData.txt")
+write.table(td, file="tidydata.txt")
 

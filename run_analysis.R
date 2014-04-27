@@ -1,4 +1,4 @@
-#Script for cleaning and creating tidy data from Samsung S2 Accelerometer.
+# Script for cleaning and creating tidy data from Samsung S2 Accelerometer.
 
 # Read in the data files into data tables.
 
